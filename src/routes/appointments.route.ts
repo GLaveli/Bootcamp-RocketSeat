@@ -6,6 +6,12 @@ import AppointmentsRepository from '../repositories/AppointmentsRepositories';
 const appointmentsRouter = Router();
 const appointmentsRepository = new AppointmentsRepository();
 
+appointmentsRouter.get('/', (req, res) => {
+  const findAllAppointments = appointmentsRepository.findAll();
+
+  return res.status(200).json(findAllAppointments);
+});
+
 appointmentsRouter.post('/', (req, res) => {
   const { provider, date } = req.body;
 
@@ -14,7 +20,7 @@ appointmentsRouter.post('/', (req, res) => {
   const responseFindByDate = appointmentsRepository.findByDate(parsedDate);
 
   if (responseFindByDate) {
-    return res.status(404).json('This date is already booked');
+    return res.status(400).json('This date is already booked');
   }
   const appointment = appointmentsRepository.create(provider, parsedDate);
 

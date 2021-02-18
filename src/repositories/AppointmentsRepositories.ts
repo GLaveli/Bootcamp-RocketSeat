@@ -22,6 +22,10 @@ class AppointmentsRepository {
     );
     return returnFindByDate || null;
   }
+
+  public findAll(): Appointment[] {
+    return this.appointments;
+  }
 }
 
 export default AppointmentsRepository;
